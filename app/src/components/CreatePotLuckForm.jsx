@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 // redux
-import { useSelector, useDispatch } from 'react-redux'
+import {useDispatch } from 'react-redux'
 import { ADD } from '../store/reducer/reducer'
 
 const intialForm = {
@@ -16,7 +16,8 @@ const intialForm = {
 
 export default function CreatePotLuckForm() {
     //states
-    const { newPotluck, setNewPotluck } = useState(intialForm)
+    const [newPotluck, setNewPotluck] = useState(intialForm)
+    debugger
     const dispatch = useDispatch()
 
     const handleChange = e => {
