@@ -1,8 +1,10 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ADD } from '../store/reducer/reducer'
+import { useHistory } from "react-router-dom"
 
 export default function Potlucks() {
+    const { push } = useHistory()
     //states
     const potluckList = useSelector(state => state)
 
@@ -42,7 +44,7 @@ export default function Potlucks() {
                     </p>
 
                     {/* Only if it bellongs to the user */}
-                    <button onClick='' className="btn edit">Edit Your Potlucker</button>
+                    <button onClick={() => push(`/edityourpotlock/${aPotluck}`)} className="btn edit">Edit Your Potlucker</button>
                     <button onClick='' className="btn delete">Delete Potlucker</button>
                 </>
             )

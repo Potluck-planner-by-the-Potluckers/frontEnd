@@ -5,6 +5,7 @@ import {  Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 // components
 import Dashboard from './components/Dashboard'
 import CreatePotluckForm from './components/CreatePotluckForm'
+import EditYourPotlucker from './components/EditYourPotlucker'
 function App() {
   return (
     <div className="App">
@@ -25,8 +26,8 @@ function App() {
           <Route path='/newpotluckform'>
             <CreatePotluckForm />
           </Route>
-          <Route path='/'>
-            {/* <SignUp /> */}
+          <Route path='/edityourpotlock/:id'>
+            <EditYourPotlucker />
           </Route>
         </Switch>
       </Router>
