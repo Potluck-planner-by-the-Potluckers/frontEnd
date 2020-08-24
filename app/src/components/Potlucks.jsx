@@ -6,7 +6,7 @@ export default function Potlucks() {
     //states
     const potluckList = useSelector(state => state)
 
-    const renderPotluck = () => {
+    const renderPotlucks = () => {
         return potluckList.map(aPotluck => {
             return (
                 <>
@@ -24,15 +24,15 @@ export default function Potlucks() {
                     </p>
                     <p>
                         Invited: {aPotluck.invited.map((anInvited, index) => {
-                            const lastIndex = (aPotluck.invited.length - 1)
-                            const isLastNameOnList = lastIndex === index
+                        const lastIndex = (aPotluck.invited.length - 1)
+                        const isLastNameOnList = lastIndex === index
 
-                            //return the last name without a comman , so the list don't look uncompleted
-                            if(isLastNameOnList) return `${anInvited.name}`
+                        //return the last name without a comman , so the list don't look uncompleted
+                        if (isLastNameOnList) return `${anInvited.name}`
 
-                            //return name on the invitation list
-                            return `${anInvited.name},`
-                        })}
+                        //return name on the invitation list
+                        return `${anInvited.name},`
+                    })}
                     </p>
                     <p>
                         Invited Confirmed Attendence: {aPotluck.myFoodList}
@@ -49,17 +49,24 @@ export default function Potlucks() {
         })
 
     }
-
-    return (
-        <div className='container potlucks-container'>
-            <section className="upcoming-potluck">
-                {renderPotluck()}
-
-            </section>
-            <section className="invited-potlucks">
+    const invitedPotlucks = () => {
+        return (
+            <>
                 {/* Can make the button dissable if they already click on it */}
                 <button onClick='' className="btn confirm-attendence">Confirm Attendence</button>
                 <button onClick='' className="btn not-attending">Not Attending</button>
+            </>
+        )
+    }
+    return (
+        <div className='container potlucks-container'>
+            <section className="upcoming-potluck">
+                {renderPotlucks()}
+
+            </section>
+            <section className="invited-potlucks">
+                {invitedPotlucks()}
+
             </section>
         </div>
     )
