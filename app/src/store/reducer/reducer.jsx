@@ -1,3 +1,8 @@
+// ACTIONS
+const GET = 'GET'
+const ADD = 'ADD'
+const EDIT = 'EDIT'
+const DELETE = 'DELETE'
 
 
 const initialState = {
@@ -11,10 +16,6 @@ const initialState = {
     myFoodList: [''],
 }
 
-const GET = 'GET'
-const ADD = 'ADD'
-const EDIT = 'EDIT'
-const DELETE = 'DELETE'
 
 export default function reducer(state = initialState, action){
     switch(action.type){
