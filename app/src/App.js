@@ -13,7 +13,7 @@ function App() {
       <Router>
         <Switch>
           {/* will be private route soon */}
-          <Route path='/dashboard'>
+          <Route path='/'>
             {/* /dashboard */}
             <Dashboard />
           </Route>
