@@ -11,10 +11,10 @@ const intialForm = {
     location: '',
     invited: '',
     myFoodList: '',
+    
 }
 
 export default function CreatePotLuckForm() {
-    // const { potluckName, date, foodList, location, invited, myFoodList } = useSelector(state => state)
     //states
     const { newPotluck, setNewPotluck } = useState(intialForm)
     const dispatch = useDispatch()

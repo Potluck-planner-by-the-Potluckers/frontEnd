@@ -8,13 +8,14 @@ export const DELETE = 'DELETE'
 const initialState = [{
     potluckName: '',
     date: '',
-    foodList: [''],
+    foodList: [],
     location: '',
     invited: [{
         name:'',
         confirmedAttendence: false,
     }],
-    myFoodList: [''],
+    myFoodList: [],
+    myInvitedList: [], 
 }]
 
 
@@ -25,10 +26,10 @@ export default function reducer(state = initialState, action){
         case ADD: 
         //from CreatePotluckForm: dispatch({ type: ADD, payload: resp.data })
         console.log(action.payload)
-            return {
+            return [
                 ...state,
-                action.payload,
-            }
+                action.payload
+            ]
         case EDIT:
             return state
         case DELETE:
