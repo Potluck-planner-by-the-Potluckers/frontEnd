@@ -47,7 +47,7 @@ export default function CreatePotLuckForm() {
                 dispatch({ type: ADD, payload: resp.data })
             })
             .catch(err => console.error(`error in onSubmit createForm --- ${err}`))
-
+        //reset the form
         setNewPotluck(intialForm)
     }
 
@@ -80,6 +80,7 @@ export default function CreatePotLuckForm() {
                 </p>
                 <input type="text" name="invited" id='Invitations' value={newPotluck.invited} onChange={handleChange} />
 
+                {/* stretch goal: validate the form, and dissable button until valitation is successful */}
                 <button className="btn submit" type='submit'>Submit</button>
             </form>
         </div>
