@@ -13,7 +13,7 @@ const intialForm = {
     myFoodList: '',
 }
 
-export default function CreatePotLuckForm() {
+export default function CreatePotluckForm() {
     //states
     const [newPotluck, setNewPotluck] = useState(intialForm)
 
