@@ -32,6 +32,11 @@ export default function Dashboard() {
                 </p>
                 <button onClick='' className="btn confirm-attendence">Confirm Attendence</button>
                 <button onClick='' className="btn not-attending">Not Attending</button>
+                
+                {/* Only if it bellongs to the user */}
+                <button onClick='' className="btn edit">Edit Your Potlucker</button>
+                <button onClick='' className="btn delete">Delete Potlucker</button>
+
             </section>
         </div>
     )
