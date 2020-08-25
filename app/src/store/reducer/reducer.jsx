@@ -1,17 +1,24 @@
 // ACTIONS
 export const GET = 'GET'
+export const GETBYID = 'GETBYID'
 export const ADD = 'ADD'
 export const EDIT = 'EDIT'
 export const DELETE = 'DELETE'
 //stretch goal const USER_LOADING = 'USER_LOADING'
 
 const initialState = [{
-    potluckName: '',
-    date: '',
-    foodList: [],
-    location: '',
+    id: 1,
+    potluckName: 'Admin special',
+    date: 'today',
+    foodList: ['rice', 'beans', 'meat'],
+    location: 'Lambda',
     invited: [{
-        name:'',
+        id:1, //needed so when the list of invited is render on different text input react can use it as a key. Resolve weir rendering bugs.
+        name:'Noan',
+        confirmedAttendence: false,
+    }, {
+        id:2,
+        name:'Simone',
         confirmedAttendence: false,
     }],
     myFoodList: [],
@@ -22,6 +29,8 @@ const initialState = [{
 export default function reducer(state = initialState, action){
     switch(action.type){
         case GET:
+            return state
+        case GETBYID:
             return state
         case ADD: 
         //from CreatePotluckForm: dispatch({ type: ADD, payload: resp.data })

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useHistory } from "react-router-dom"
-import { Route, Switch } from 'react-router-dom'
 import Potlucks from './Potlucks'
 export default function Dashboard() {
     const { push } = useHistory()

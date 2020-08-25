@@ -55,6 +55,7 @@ export default function CreatePotluckForm() {
 
     return (
         <div className='container'>
+        
             <form onSubmit={onSubmit}>
                 <label htmlFor="potluckName">Potluck Name</label>
                 <input type="text" name="potluckName" id='potluckName' value={newPotluck.potluckName} onChange={handleChange} />
