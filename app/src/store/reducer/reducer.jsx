@@ -44,9 +44,8 @@ export default function reducer(state = initialState, action){
         case EDIT:
             return state
         case DELETE:
-            debugger
+            // potlucks.jsx : dispatch({ type: DELETE, payload: { id: aPotluck.id } }) on delete button
             return [
-                
                 state.filter(aPotluck => aPotluck.id !== action.payload.id)
             ]
         default:

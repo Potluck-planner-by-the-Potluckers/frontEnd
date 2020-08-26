@@ -11,7 +11,13 @@ export default function Potlucks() {
     const potluckList = useSelector(state => state)
 
     const renderPotlucks = () => {
-        return potluckList.map(aPotluck => {
+        const isListNotHere = !(potluckList[0].potluckName)
+        if(undefined) console.log('undefined')
+        if(!undefined) console.log('!undefined')
+        
+        
+        debugger
+        return isListNotHere ? <p>Start hosting a new Potluck</p> : potluckList.map(aPotluck => {
             return (
                 <section className="upcoming-potluck">
                     <h2>
@@ -48,7 +54,6 @@ export default function Potlucks() {
                     {/* Only if it bellongs to the user */}
                     <button onClick={() => push(`/edityourpotlock/${aPotluck.id}`)} className="btn edit">Edit Your Potlucker</button>
                     <button onClick={() => {
-                        debugger
                         dispatch({ type: DELETE, payload: { id: aPotluck.id } })
                     }
                     } className="btn delete">Delete Potlucker</button>
@@ -68,18 +73,12 @@ export default function Potlucks() {
     }
     return (
         <div className='container potlucks-container'>
-            <h1>
-                Welcome to the Dashboard
-            </h1>
+            <h1>Welcome to the Dashboard</h1>
 
-            <h2>
-                Your Hosted Potlucks
-            </h2>
+            <h2>Your Hosted Potlucks</h2>
             {renderPotlucks()}
 
-            <h2>
-                Invitations To Others Potlucks
-            </h2>
+            <h2>Invitations To Others Potlucks</h2>
             {invitedPotlucks()}
         </div>
     )
