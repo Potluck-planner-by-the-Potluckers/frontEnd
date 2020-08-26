@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom'
+
 // redux
 import { useDispatch } from 'react-redux'
 import { ADD } from '../store/reducer/reducer'
@@ -18,6 +20,7 @@ export default function CreatePotluckForm() {
     const [newPotluck, setNewPotluck] = useState(intialForm)
 
     const dispatch = useDispatch()
+    const { push } = useHistory()
 
     const handleChange = e => {
         e.preventDefault()
@@ -55,7 +58,13 @@ export default function CreatePotluckForm() {
 
     return (
         <div className='container'>
-        
+            {/* return to dashboard button */}
+            <button className="btn to-dashboard" onClick={() => push('/')}>Back to Dashboard</button>
+
+            {/* Form title */}
+            <h1>
+                Create New Potluck
+</h1>
             <form onSubmit={onSubmit}>
                 <label htmlFor="potluckName">Potluck Name</label>
                 <input type="text" name="potluckName" id='potluckName' value={newPotluck.potluckName} onChange={handleChange} />

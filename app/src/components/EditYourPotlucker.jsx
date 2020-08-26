@@ -30,7 +30,7 @@ export default function EditYourPotlucker() {
         id: uuidv4(),
         name: '',
         confirmedAttendence: false,
-    
+
     })
 
 
@@ -143,12 +143,22 @@ export default function EditYourPotlucker() {
         //reset the input
         setNewInvitation({
             ...newInvitation,
-            name:''
+            name: '',
+            id: uuidv4()
         })
     }
 
     return (
         <div className='container'>
+            {/* return to dashboard button */}
+            <button className="btn to-dashboard" onClick={() => push('/')}>Back to Dashboard</button>
+
+            {/* Form title */}
+            <h1>
+                Edit the podluck "{potluck.potluckName}"
+            </h1>
+
+            {/* edit form */}
             <form onSubmit={onSubmit}>
                 <label htmlFor="potluckName">Potluck Name</label>
                 <input type="text" name="potluckName" id='potluckName' value={potluck.potluckName} onChange={handleChange} />
