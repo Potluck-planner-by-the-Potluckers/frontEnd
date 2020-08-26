@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid' //generates :"f7b8b94e-9cff-46a2-a740-40b8fac4ec09" unic
+
 // ACTIONS
 export const GET = 'GET'
 export const GETBYID = 'GETBYID'
@@ -13,11 +15,11 @@ const initialState = [{
     foodList: ['rice', 'beans', 'meat'],
     location: 'Lambda',
     invited: [{
-        id:1, //needed so when the list of invited is render on different text input react can use it as a key. Resolve weir rendering bugs.
+        id:uuidv4(), //needed so when the list of invited is render on different text input react can use it as a key. Resolve weir rendering bugs.
         name:'Noan',
         confirmedAttendence: false,
     }, {
-        id:2,
+        id:uuidv4(),
         name:'Simone',
         confirmedAttendence: false,
     }],

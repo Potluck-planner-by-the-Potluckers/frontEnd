@@ -26,7 +26,7 @@ export default function CreatePotluckForm() {
         //add change to the state
         setNewPotluck({
             ...newPotluck,
-            [e.target.name]: [e.target.value]
+            [e.target.name]: e.target.value
         })
     }
     const onSubmit = e => {
