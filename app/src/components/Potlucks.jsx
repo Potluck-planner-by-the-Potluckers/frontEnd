@@ -11,10 +11,8 @@ export default function Potlucks() {
     const potluckList = useSelector(state => state)
 
     const renderPotlucks = () => {
+        //check if there is potluck on the list
         const isListNotHere = !(potluckList[0].potluckName)
-        if(undefined) console.log('undefined')
-        if(!undefined) console.log('!undefined')
-        
         
         debugger
         return isListNotHere ? <p>Start hosting a new Potluck</p> : potluckList.map(aPotluck => {

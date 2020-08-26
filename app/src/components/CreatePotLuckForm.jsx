@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
-
+import { v4 as uuidv4 } from 'uuid' //generates :"f7b8b94e-9cff-46a2-a740-40b8fac4ec09" unic
 // redux
 import { useDispatch } from 'react-redux'
 import { ADD } from '../store/reducer/reducer'
 
 const intialForm = {
+    id: uuidv4(),
     potluckName: '',
     date: '',
     foodList: '',
@@ -24,7 +25,6 @@ export default function CreatePotluckForm() {
 
     const handleChange = e => {
         e.preventDefault()
-        e.presist()
 
         //add change to the state
         setNewPotluck({
@@ -34,24 +34,39 @@ export default function CreatePotluckForm() {
     }
     const onSubmit = e => {
         e.preventDefault()
-        //SHORT out data: foodList, invited
+        
+        // make the long string into a list of by separting name by ','
+        const guestNames = newPotluck.invited.split(',')
+        //add confirmedAttendence to the list
+        const formatedInvitationList = guestNames.map(name => {
+            return {
+                name: name,
+                confirmedAttendence: false,
+            }
+        })
+
+        //set new formated state like the server wants
         const newFormatedPotluck = {
             ...newPotluck,
             foodList: newPotluck.foodList.split(','),
-            invited: {
-                name: newPotluck.invited.split(','),
-                confirmedAttendence: false,
-            },
+            invited: formatedInvitationList,
         }
+
+        //talk to the server
+        debugger
+        dispatch({ type: ADD, payload: {newFormatedPotluck} })
+        setNewPotluck(intialForm)
+        push('/')
+        debugger
         //POST REQUEST
-        axios.post('/newpotluck', newFormatedPotluck)
-            .then(resp => {
-                console.log(`Create post request success-- ${resp.data}`)
-                dispatch({ type: ADD, payload: resp.data })
-                //reset the form
-                setNewPotluck(intialForm)
-            })
-            .catch(err => console.error(`error in onSubmit createForm --- ${err}`))
+        // axios.post('/newpotluck', newFormatedPotluck)
+        //     .then(resp => {
+        //         console.log(`Create post request success-- ${resp.data}`)
+        //         dispatch({ type: ADD, payload: resp.data })
+        //         //reset the form
+        //         setNewPotluck(intialForm)
+        //     })
+        //     .catch(err => console.error(`error in onSubmit createForm --- ${err}`))
 
     }
 

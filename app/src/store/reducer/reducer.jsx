@@ -37,9 +37,10 @@ export default function reducer(state = initialState, action){
         case ADD: 
         //from CreatePotluckForm: dispatch({ type: ADD, payload: resp.data })
         console.log(action.payload)
+        debugger
             return [
                 ...state,
-                action.payload
+                action.payload.newFormatedPotluck
             ]
         case EDIT:
             return state
