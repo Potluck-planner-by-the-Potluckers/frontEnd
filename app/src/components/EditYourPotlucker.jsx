@@ -7,13 +7,6 @@ import { v4 as uuidv4 } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
 import { EDIT } from '../store/reducer/reducer'
 
-//initial data
-const initialInvitation = {
-    id: uuidv4(),
-    name: '',
-    confirmedAttendence: false,
-
-}
 
 export default function EditYourPotlucker() {
     //capture variable on the url
