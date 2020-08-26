@@ -1,11 +1,13 @@
 // https://github.com/Potluck-planner-by-the-Potluckers/frontEnd
 import React from 'react';
 import './App.css';
-import {  Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 // components
 import Dashboard from './components/Dashboard'
 import CreatePotluckForm from './components/CreatePotluckForm'
 import EditYourPotlucker from './components/EditYourPotlucker'
+import PublicPotluck from './components/PublicPotluck'
+import ConfirmationForm from './components/ConfirmationForm'
 function App() {
   return (
     <div className="App">
@@ -13,7 +15,7 @@ function App() {
       <Router>
         <Switch>
           {/* will be private route soon */}
-          <Route  exact path='/'>
+          <Route exact path='/'>
             {/* /dashboard */}
             <Dashboard />
           </Route>
@@ -28,6 +30,12 @@ function App() {
           </Route>
           <Route path='/edityourpotlock/:id'>
             <EditYourPotlucker />
+          </Route>
+          <Route exact path='/:id/:urlPotluckName'>
+            <PublicPotluck />
+          </Route>
+          <Route exact path='/:id/:urlPotluckName/confirmation'>
+            <ConfirmationForm />
           </Route>
         </Switch>
       </Router>

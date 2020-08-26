@@ -16,6 +16,12 @@ export default function Potlucks() {
         
         debugger
         return isListNotHere ? <p>Start hosting a new Potluck</p> : potluckList.map(aPotluck => {
+            //make potluck name url friendly
+            //lowercase
+            //nospace
+            let urlPotluckName = aPotluck.potluckName.replace(/\s+/g, '')
+            urlPotluckName = urlPotluckName.toLowerCase()
+
             return (
                 <section className="upcoming-potluck">
                     <h2>
@@ -55,6 +61,10 @@ export default function Potlucks() {
                         dispatch({ type: DELETE, payload: { id: aPotluck.id } })
                     }
                     } className="btn delete">Delete Potlucker</button>
+                    <button className="btn public-btn" onClick={() => {
+                        push(`/${aPotluck.id}/${urlPotluckName}`)
+                    }
+                    }>See live potluck</button>
                 </section>
             )
         })
