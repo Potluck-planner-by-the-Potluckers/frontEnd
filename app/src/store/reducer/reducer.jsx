@@ -44,7 +44,11 @@ export default function reducer(state = initialState, action){
         case EDIT:
             return state
         case DELETE:
-            return state
+            debugger
+            return [
+                
+                state.filter(aPotluck => aPotluck.id !== action.payload.id)
+            ]
         default:
             return state
     }

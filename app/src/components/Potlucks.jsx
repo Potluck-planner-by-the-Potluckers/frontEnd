@@ -1,17 +1,19 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { ADD } from '../store/reducer/reducer'
+import { DELETE } from '../store/reducer/reducer'
 import { useHistory } from "react-router-dom"
 
 export default function Potlucks() {
     const { push } = useHistory()
+    const dispatch = useDispatch()
+
     //states
     const potluckList = useSelector(state => state)
 
     const renderPotlucks = () => {
         return potluckList.map(aPotluck => {
             return (
-                <>
+                <section className="upcoming-potluck">
                     <h2>
                         Potluck Name: {aPotluck.potluckName}
                     </h2>
@@ -45,31 +47,40 @@ export default function Potlucks() {
 
                     {/* Only if it bellongs to the user */}
                     <button onClick={() => push(`/edityourpotlock/${aPotluck.id}`)} className="btn edit">Edit Your Potlucker</button>
-                    <button onClick='' className="btn delete">Delete Potlucker</button>
-                </>
+                    <button onClick={() => {
+                        debugger
+                        dispatch({ type: DELETE, payload: { id: aPotluck.id } })
+                    }
+                    } className="btn delete">Delete Potlucker</button>
+                </section>
             )
         })
 
     }
     const invitedPotlucks = () => {
         return (
-            <>
+            <section className="invited-potlucks">
                 {/* Can make the button dissable if they already click on it */}
                 <button onClick='' className="btn confirm-attendence">Confirm Attendence</button>
                 <button onClick='' className="btn not-attending">Not Attending</button>
-            </>
+            </section>
         )
     }
     return (
         <div className='container potlucks-container'>
-            <section className="upcoming-potluck">
-                {renderPotlucks()}
+            <h1>
+                Welcome to the Dashboard
+            </h1>
 
-            </section>
-            <section className="invited-potlucks">
-                {invitedPotlucks()}
+            <h2>
+                Your Hosted Potlucks
+            </h2>
+            {renderPotlucks()}
 
-            </section>
+            <h2>
+                Invitations To Others Potlucks
+            </h2>
+            {invitedPotlucks()}
         </div>
     )
 }
