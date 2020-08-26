@@ -70,15 +70,7 @@ export default function Potlucks() {
         })
 
     }
-    const invitedPotlucks = () => {
-        return (
-            <section className="invited-potlucks">
-                {/* Can make the button dissable if they already click on it */}
-                <button onClick='' className="btn confirm-attendence">Confirm Attendence</button>
-                <button onClick='' className="btn not-attending">Not Attending</button>
-            </section>
-        )
-    }
+    
     return (
         <div className='container potlucks-container'>
             <h1>Welcome to the Dashboard</h1>
@@ -86,8 +78,6 @@ export default function Potlucks() {
             <h2>Your Hosted Potlucks</h2>
             {renderPotlucks()}
 
-            <h2>Invitations To Others Potlucks</h2>
-            {invitedPotlucks()}
         </div>
     )
 }
