@@ -41,7 +41,7 @@ export default function CreatePotluckForm() {
     }
     const onSubmit = e => {
         e.preventDefault()
-
+ 
         // Post a New Potluck to server 
         // dispatch({ type: ADD, payload: {newPotluck} })
         // setNewPotluck(intialForm)
