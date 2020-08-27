@@ -10,6 +10,7 @@ import EditYourPotlucker from './components/EditYourPotlucker'
 import PublicPotluck from './components/PublicPotluck'
 import ConfirmationForm from './components/ConfirmationForm'
 import Login from './components/Login'
+import Signup from './components/Signup'
 function App() {
   return (
     <div className="App">
@@ -17,15 +18,14 @@ function App() {
       <Router>
         <Switch>
           {/* will be private route soon */}
-          <Route exact path='/'>
-            {/* /dashboard */}
+          <Route path='/dashboard'>
             <Dashboard />
           </Route>
-          <Route path='/login'>
+          <Route exact path='/'>
             <Login />
           </Route>
           <Route path='/signup'>
-            {/* <SignUp /> */}
+            <Signup />
           </Route>
           <Route path='/newpotluckform'>
             <CreatePotluckForm />

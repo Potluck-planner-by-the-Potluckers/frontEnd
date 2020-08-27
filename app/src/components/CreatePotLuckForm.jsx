@@ -6,8 +6,15 @@ import { v4 as uuidv4 } from 'uuid' //generates :"f7b8b94e-9cff-46a2-a740-40b8fa
 import { useDispatch } from 'react-redux'
 import { ADD } from '../store/reducer/reducer'
 
+// const intialForm = {
+//     potluckName: '',
+//     date: '',
+//     foodList: '',
+//     location: '',
+//     invited: '',
+//     myFoodList: '',
+// }
 const intialForm = {
-    id: uuidv4(),
     potluckName: '',
     date: '',
     foodList: '',
@@ -15,6 +22,8 @@ const intialForm = {
     invited: '',
     myFoodList: '',
 }
+
+
 
 export default function CreatePotluckForm() {
     //states
