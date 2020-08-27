@@ -12,25 +12,40 @@ export default function Login() {
     const { push } = useHistory()
 
     // states
-    const [newUser, setNewUser] =useState(initialState)
+    const [credentials, setCredentials] =useState(initialState)
     // helping functions
+    const login = () => {
+        // e.preventDefault();
+        // e.persist()
+        axios.post('https://viriditymoon-buildweek.herokuapp.com/login', `grant_type=password&username=${credentials.username}&password=${credentials.password}`, {
+          headers: {
+            // btoa is converting our client id/client secret into base64
+            Authorization: `Basic ${btoa('lambda-client:lambda-secret')}`,
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        })
+        .then(res => {
+          console.log(res.data)
+          localStorage.setItem('token', res.data.access_token);
+          push('/dashboard');
+        })
+      }
+    
+
     const handleChange = (e) => {
         //update the state with the input from users
         const {name, value} = e.target
-        setNewUser({
-            ...newUser,
+        // console.log(name)
+        // console.log(value)
+        setCredentials({
+            ...credentials,
             [name]: value,
         })
     }
     const handleSubmit = (e) => {
         //get state data to the server, and move them to the login page
-        axios.post('https://viriditymoon-buildweek.herokuapp.com/login', newUser)
-            .then(resp => {
-                debugger
-                console.log(resp.data)
-                push('/dashboard')
-            })
-            .catch(err => {debugger;console.error(`Error on signup page --- ${err}`)})
+        e.preventDefault()
+        login()
     }
     // gab gab "69e1ba50-da85-4c3a-b107-b27a295a161a"
     return (
@@ -47,7 +62,7 @@ export default function Login() {
                                     label='Username'
                                     placeholder='Username'
                                     onChange={handleChange}
-                                    value={newUser.username}
+                                    value={credentials.username}
                                     name='username'
                                 />
                                 <Form.Input
@@ -56,7 +71,7 @@ export default function Login() {
                                     label='Password'
                                     type='password'
                                     onChange={handleChange}
-                                    value={newUser.password}
+                                    value={credentials.password}
                                     name='password'
                                 />
 

@@ -26,6 +26,25 @@ const initialState = [{
     myFoodList: [],
     myInvitedList: [], 
 }]
+const initialStateLikeServer = [{
+    name: '',
+    description: '',
+    location: '',
+    date: '',
+    time: '',
+    id: 1,
+    invited: [{
+        id:uuidv4(), //needed so when the list of invited is render on different text input react can use it as a key. Resolve weir rendering bugs.
+        name:'Noan',
+        confirmedAttendence: false,
+    }, {
+        id:uuidv4(),
+        name:'Simone',
+        confirmedAttendence: false,
+    }],
+    myFoodList: [],
+    myInvitedList: [], 
+}]
 
 
 export default function reducer(state = initialState, action){
@@ -40,7 +59,7 @@ export default function reducer(state = initialState, action){
         debugger
             return [
                 ...state,
-                action.payload.newFormatedPotluck
+                action.payload.newPotluck
             ]
         case EDIT:
             return state
