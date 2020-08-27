@@ -93,14 +93,11 @@ export default function Potlucks() {
                 urlPotluckName = urlPotluckName.toLowerCase()
 
                 return (
-                    <section className="upcoming-potluck">
+                    <section className="upcoming-potluck" key={aPotluck.potluckid}>
                         <h2>{aPotluck.name}</h2>
                         <p>{aPotluck.date} : {aPotluck.time}</p>
-                        {/* <input type="date" name="date" id='date' value={aPotluck.date} disabled /> */}
                         <p></p>
-                        {/* <p>
-                        Food List: {aPotluck.foodList}
-                    </p> */}
+                        
                         <p>
                             Location: {aPotluck.location}
                         </p>
@@ -112,19 +109,27 @@ export default function Potlucks() {
 
                         {/* Only if it bellongs to the user */}
                         <button onClick={() => push(`/edityourpotlock/${aPotluck.id}`)} className="btn edit">Edit Your Potlucker</button>
-                        <button onClick={() => {
-                            dispatch({ type: DELETE, payload: { id: aPotluck.id } })
-                        }
-                        } className="btn delete">Delete Potlucker</button>
-                        <button className="btn public-btn" onClick={() => {
-                            push(`/${aPotluck.id}/${urlPotluckName}`)
-                        }
-                        }>See live potluck</button>
+                        <button onClick={() => {deleteAPotluck(aPotluck.potluckid)}} className="btn delete-btn">Delete Potlucker</button>
+                        <button className="btn public-btn" onClick={() => {push(`/${aPotluck.potluckid}/${urlPotluckName}`)}}>See live potluck</button>
                     </section>
                 )
             })
 
     }
+    const deleteAPotluck = (id) => {
+        axiosWithAuth().delete(`/potlucks/potluck/${id}`)
+            .then(() => {
+                setpotluckList(
+                    potluckList.filter(item => item.potluckid !== id)
+                )
+            })
+            .catch((err) => {
+                console.error(err)
+            }
+            )
+    }
+    
+
     useEffect(() => {
         axiosWithAuth().get('users/getuserinfo')
             .then((resp) => {
@@ -136,6 +141,7 @@ export default function Potlucks() {
                 debugger
             })
     }, [])
+
 
     return (
         <div className='container potlucks-container'>

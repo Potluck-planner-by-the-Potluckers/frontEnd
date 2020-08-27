@@ -13,13 +13,20 @@ import { ADD } from '../store/reducer/reducer'
 //     time: '',
 //     user: '',
 // }
+// const intialForm = {
+//     name: 'Royer Adames',
+//     description: 'Ah, nostalgia. Give yourself a double dose with this grown-up, just-for-you version of one of childhoods greatest gadgets: the reel viewer. Assemble snapshots of your favorite memories and add them to your very own reel using the redemption code included with your viewer. Once you receive your made-to-order reel, pop it in the viewer and marvel at babys first steps, or your favorite beach at sunset, or... well, whatever else you want immortalized. Remember: Youre the view master now. Made in Oregon.',
+//     location: 'Orlando, Florida',
+//     date: '2020-08-05',
+//     time: '11:05',
+//     user: '',
+// }
 const intialForm = {
-    name: 'Royer Adames',
-    description: 'Ah, nostalgia. Give yourself a double dose with this grown-up, just-for-you version of one of childhoods greatest gadgets: the reel viewer. Assemble snapshots of your favorite memories and add them to your very own reel using the redemption code included with your viewer. Once you receive your made-to-order reel, pop it in the viewer and marvel at babys first steps, or your favorite beach at sunset, or... well, whatever else you want immortalized. Remember: Youre the view master now. Made in Oregon.',
-    location: 'Orlando, Florida',
-    date: '2020-08-05',
-    time: '11:05',
-    user: '',
+    name: 'New Potluck',
+    description: 'This is the description',
+    location: 'Jupiter',
+    date: '1999-04-26',
+    time: 'Noon',
 }
 
 export default function CreatePotluckForm() {
@@ -34,20 +41,20 @@ export default function CreatePotluckForm() {
     useEffect(() => {
         debugger
 
-        axiosWithAuth().get('users/getuserinfo')
-            .then((resp) => {
-                setNewPotluck({
-                    ...newPotluck,
-                    user: resp.data,
-                })
-                debugger
-                console.log(resp)
-            }
-            )
-            .catch((err) => {
-                console.error(err)
-                debugger
-            })
+        // axiosWithAuth().get('users/getuserinfo')
+        //     .then((resp) => {
+        //         setNewPotluck({
+        //             ...newPotluck,
+        //             user: resp.data,
+        //         })
+        //         debugger
+        //         console.log(resp)
+        //     }
+        //     )
+        //     .catch((err) => {
+        //         console.error(err)
+        //         debugger
+        //     })
 
             // debugging
             // seeing how all the users look
@@ -120,7 +127,7 @@ export default function CreatePotluckForm() {
                 <input type="date" name="date" id='date' value={newPotluck.date} onChange={handleChange} required />
 
                 <label htmlFor="time">Time</label>
-                <input type="time" name="time" id='time' value={newPotluck.time} onChange={handleChange} min="09:00" max="18:00" required />
+                <input type="time" name="time" id='time' value={newPotluck.time} onChange={handleChange}  />
 
                 {/* stretch goal: validate the form, and dissable button until valitation is successful */}
                 <button className="btn submit" type='submit'>Submit</button>
