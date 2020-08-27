@@ -52,7 +52,6 @@ export default function EditYourPotlucker() {
                     location: resp.data.potlucks.map(item => item.location)[0],
                     date: resp.data.potlucks.map(item => item.date)[0],
                     time: resp.data.potlucks.map(item => item.time)[0],
-                    userid: resp.data.userid
                 })
                 debugger
                 

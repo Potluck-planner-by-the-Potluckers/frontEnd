@@ -19,7 +19,7 @@ const intialForm = {
     description: 'This is the description',
     location: 'Jupiter',
     date: '1999-04-26',
-    time: 'Noon',
+    time: '07:00',
 }
 
 export default function CreatePotluckForm() {
