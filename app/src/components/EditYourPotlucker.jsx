@@ -12,133 +12,44 @@ import { EDIT } from '../store/reducer/reducer'
 export default function EditYourPotlucker() {
     //capture variable on the url
     const { id } = useParams()
+    console.log(id)
     const { push } = useHistory()
 
     //be able to create action dispatch on this component
     const dispatch = useDispatch()
     // states
     const [editPotluck, setEditPotluck] = useState('Loading')
-
-
-    //filter redux store by id and return that object and set it it has  a new state in this local component
-    // const currentPotluckerData = useSelector(state => state.filter(aPotluck => { return aPotluck.id === parseInt(id) }))
-    //states
-    // const [editPotluck, setEditPotluck] = useState(currentPotluckerData[0])
-    // const [newInvitation, setNewInvitation] = useState({
-    //     id: uuidv4(),
-    //     name: '',
-    //     confirmedAttendence: false,
-
-    // })
-
-
-
+    const [user, setUser] = useState()
     //helper functions
     const handleChange = e => {
         e.preventDefault()
 
         //add change to the state
-        //Treat invited inputs differently
-        const isInvitedInputs = e.target.id === 'invited'
-        const isFoodListInput = e.target.name === "foodList"
-        const isNewInvitation = e.target.name === "newInvitation"
-        if (isInvitedInputs) {
-            //variables
-            const PotluckId = e.target.name
-            const editedName = e.target.value
-
-            //copy of invited list
-            const copyOfPotluckInvited = editPotluck.invited
-            //changing the copy of invited list 
-            copyOfPotluckInvited.map((aInvited, index) => {
-                // match index so you can update it
-                if (aInvited.id === PotluckId) aInvited.name = editedName
-
-                return aInvited
-            })
-            //reflecting the changes to the invites list on state
-            setEditPotluck({
-                ...editPotluck,
-                invited: copyOfPotluckInvited
-            })
-        } else if (isNewInvitation) {
-            // capture input state and save it to state
-            setEditPotluck({
-                ...editPotluck,
-                name: e.target.value
-            })
-        } else if (isFoodListInput) {
-            //separates all text that have , and gives them an unic index 
-            let value = e.target.value.split(',')
-            setEditPotluck({
-                ...editPotluck,
-                [e.target.name]: value
-            })
-        } else {
-            setEditPotluck({
-                ...editPotluck,
-                [e.target.name]: e.target.value
-            })
-        }
-
+        setEditPotluck({
+            ...editPotluck,
+            [e.target.name]: e.target.value
+        })
     }
     const onSubmit = e => {
         e.preventDefault()
-        //SHORT out data: foodList
-        //separete the food when they have a , and give them their own indexes
-        const newFormatedPotluck = {
+        const formatedUser = {
             ...editPotluck,
-            foodList: editPotluck.foodList.split(','),
+            ...user
         }
-        //PUT REQUEST
-        axios.put('/newpotluck', newFormatedPotluck)
+        debugger
+
+        //save edit to server
+        axiosWithAuth().put(`/potlucks/potluck/${id}`, formatedUser)
             .then(resp => {
                 console.log(`Create post request success-- ${resp.data}`)
-
-                dispatch({ type: EDIT, payload: resp.data })
-
+                debugger
                 //reset the form
                 push('/dashboard')
             })
-            .catch(err => console.error(`error in onSubmit createForm --- ${err}`))
-    }
-    const invitedInputs = () => {//change from many inputs to a single input like foodlist
-        return editPotluck.invited.map((aInvited, index) => {
-            return (
-                <>
-                    {/* Text inputs for every name on the invitation list */}
-                    <input type="text" name={aInvited.id} id={'invited'} value={aInvited.name} onChange={handleChange} key={aInvited.id} />
-
-                    {/* remove button */}
-                    <button className="btn delete-btn" onClick={() => removeInvitation(aInvited.id)} key={index} type='button'>Delete Invitation</button>
-                </>
-            )
-        })
-    }
-    const removeInvitation = (id) => {
-        debugger
-        let removedInvitation = editPotluck.invited
-        removedInvitation = removedInvitation.filter(aInvited => aInvited.id !== id)
-        setEditPotluck({
-            ...editPotluck,
-            invited: removedInvitation
-        })
-    }
-
-    const addInvitation = () => {
-        //adding new invited to the list
-        const newInvitedAdded = editPotluck.invited.slice()
-        newInvitedAdded.push(editPotluck)
-
-        //overwriting state with the new invited included
-        setEditPotluck(
-            {
-                ...editPotluck,
-                invited: newInvitedAdded
-            }
-        )
-        //reset the input
-        
+            .catch(err => {
+                debugger
+                console.error(`error in onSubmit createForm --- ${err}`)
+            })
     }
 
     useEffect(()=> {
@@ -147,18 +58,37 @@ export default function EditYourPotlucker() {
             .then((resp) => {
                 setEditPotluck(resp.data.potlucks.filter(item => item.potluckid == id)[0])
                 debugger
+                
+                setUser({
+                    
+                    user:{userid: resp.data.userid}
+                })
             })
             .catch((err) => {
                 console.error(err)
                 debugger
             })
+        // axiosWithAuth().get('users/getuserinfo')
+        //     .then((resp) => {
+                
+        //         debugger
+                
+        //         setEditPotluck({
+        //             ...editPotluck,
+        //             user:{userid: resp.data.userid}
+        //         })
+        //     })
+        //     .catch((err) => {
+        //         console.error(err)
+        //         debugger
+        //     })
     }, [id])
 
     if(editPotluck === 'Loading') return <h1>Loading...</h1>
     return (
         <div className='container'>
             {/* return to dashboard button */}
-            <button className="btn to-dashboard" onClick={() => push('/')}>Back to Dashboard</button>
+            <button className="btn to-dashboard" onClick={() => push('/dashboard')}>Back to Dashboard</button>
 
             {/* Form title */}
             <h1>
@@ -167,26 +97,20 @@ export default function EditYourPotlucker() {
 
             {/* edit form */}
             <form onSubmit={onSubmit}>
-                <label htmlFor="potluckName">editPotluck Name</label>
-                <input type="text" name="potluckName" id='potluckName' value={editPotluck.potluckName} onChange={handleChange} />
+            <label htmlFor="name">Potluck Name</label>
+                <input type="text" name="name" id='name' value={editPotluck.name} onChange={handleChange} required />
 
-
-                <label htmlFor="date">Date</label>
-                <input type="text" name="date" id='date' value={editPotluck.date} onChange={handleChange} />
-
-
-                <label htmlFor="foodList">Foods List</label>
-                <p>
-                    Separete Foods with commans
-                </p>
-                <input type="text" name="foodList" id='foodList' value={editPotluck.foodList} onChange={handleChange} />
-
+                <label htmlFor="description">Description</label>
+                <input type="description" name="description" id='description' value={editPotluck.description} onChange={handleChange} />
 
                 <label htmlFor="location">Location</label>
-                <input type="text" name="location" id='location' value={editPotluck.location} onChange={handleChange} />
+                <input type="text" name="location" id='location' value={editPotluck.location} onChange={handleChange} required />
 
+                <label htmlFor="date">Date</label>
+                <input type="date" name="date" id='date' value={editPotluck.date} onChange={handleChange} required />
 
-            
+                <label htmlFor="time">Time</label>
+                <input type="time" name="time" id='time' value={editPotluck.time} onChange={handleChange} />
 
                 {/* stretch goal: validate the form, and dissable button until valitation is successful */}
                 <button className="btn submit" type='submit'>Submit</button>

@@ -13,14 +13,7 @@ import { ADD } from '../store/reducer/reducer'
 //     time: '',
 //     user: '',
 // }
-// const intialForm = {
-//     name: 'Royer Adames',
-//     description: 'Ah, nostalgia. Give yourself a double dose with this grown-up, just-for-you version of one of childhoods greatest gadgets: the reel viewer. Assemble snapshots of your favorite memories and add them to your very own reel using the redemption code included with your viewer. Once you receive your made-to-order reel, pop it in the viewer and marvel at babys first steps, or your favorite beach at sunset, or... well, whatever else you want immortalized. Remember: Youre the view master now. Made in Oregon.',
-//     location: 'Orlando, Florida',
-//     date: '2020-08-05',
-//     time: '11:05',
-//     user: '',
-// }
+
 const intialForm = {
     name: 'New Potluck',
     description: 'This is the description',
@@ -38,37 +31,6 @@ export default function CreatePotluckForm() {
     const { push } = useHistory()
 
     //helper functions
-    useEffect(() => {
-        debugger
-
-        // axiosWithAuth().get('users/getuserinfo')
-        //     .then((resp) => {
-        //         setNewPotluck({
-        //             ...newPotluck,
-        //             user: resp.data,
-        //         })
-        //         debugger
-        //         console.log(resp)
-        //     }
-        //     )
-        //     .catch((err) => {
-        //         console.error(err)
-        //         debugger
-        //     })
-
-            // debugging
-            // seeing how all the users look
-        // axiosWithAuth().get('/users/users')
-        //     .then((resp) => {
-        //         console.log(resp.data)
-        //         debugger
-        //     })
-        //     .catch((err) => {
-        //         debugger
-        //     }
-        //     )
-            
-    }, [])
     const handleChange = e => {
         e.preventDefault()
 
@@ -110,9 +72,7 @@ export default function CreatePotluckForm() {
             <button className="btn to-dashboard" onClick={() => push('/dashboard')}>Back to Dashboard</button>
 
             {/* Form title */}
-            <h1>
-                Create New Potluck
-</h1>
+            <h1>Create New Potluck</h1>
             <form onSubmit={onSubmit}>
                 <label htmlFor="name">Potluck Name</label>
                 <input type="text" name="name" id='name' value={newPotluck.name} onChange={handleChange} required />
@@ -127,7 +87,7 @@ export default function CreatePotluckForm() {
                 <input type="date" name="date" id='date' value={newPotluck.date} onChange={handleChange} required />
 
                 <label htmlFor="time">Time</label>
-                <input type="time" name="time" id='time' value={newPotluck.time} onChange={handleChange}  />
+                <input type="time" name="time" id='time' value={newPotluck.time} onChange={handleChange} />
 
                 {/* stretch goal: validate the form, and dissable button until valitation is successful */}
                 <button className="btn submit" type='submit'>Submit</button>
