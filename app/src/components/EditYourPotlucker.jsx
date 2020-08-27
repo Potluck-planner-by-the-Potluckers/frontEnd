@@ -29,18 +29,7 @@ export default function EditYourPotlucker() {
         //stop page from re-lodding
         e.preventDefault()
         //save edit to server
-        axiosWithAuth().put(`/api/users/${id}`, editPotluck)
-            .then(resp => {
-                console.log(`Create post request success-- ${resp.data}`)
-                debugger
-                //reset the form
-                push('/dashboard')
-            })
-            .catch(err => {
-                debugger
-                console.error(`error in onSubmit createForm --- ${err}`)
-            })
-        // axiosWithAuth().put(`/potlucks/potluck/${id}`, editPotluck)
+        // axiosWithAuth().put(`/api/users/${id}`, editPotluck)
         //     .then(resp => {
         //         console.log(`Create post request success-- ${resp.data}`)
         //         debugger
@@ -51,6 +40,17 @@ export default function EditYourPotlucker() {
         //         debugger
         //         console.error(`error in onSubmit createForm --- ${err}`)
         //     })
+        axiosWithAuth().put(`/potlucks/potluck/${id}`, editPotluck)
+            .then(resp => {
+                console.log(`Create post request success-- ${resp.data}`)
+                debugger
+                //reset the form
+                push('/dashboard')
+            })
+            .catch(err => {
+                debugger
+                console.error(`error in onSubmit createForm --- ${err}`)
+            })
     }
 
     useEffect(()=> {
