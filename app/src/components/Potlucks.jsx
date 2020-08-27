@@ -108,7 +108,7 @@ export default function Potlucks() {
 
 
                         {/* Only if it bellongs to the user */}
-                        <button onClick={() => push(`/edityourpotlock/${aPotluck.id}`)} className="btn edit">Edit Your Potlucker</button>
+                        <button onClick={() => push(`/edityourpotlock/${aPotluck.potluckid}`)} className="btn edit">Edit Your Potlucker</button>
                         <button onClick={() => {deleteAPotluck(aPotluck.potluckid)}} className="btn delete-btn">Delete Potlucker</button>
                         <button className="btn public-btn" onClick={() => {push(`/${aPotluck.potluckid}/${urlPotluckName}`)}}>See live potluck</button>
                     </section>
