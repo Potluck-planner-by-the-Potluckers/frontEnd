@@ -10,6 +10,7 @@ function App() {
   return (
     <div className="App">
 
+
       <Router>
         <Switch>
           {/* will be private route soon */}
@@ -23,14 +24,17 @@ function App() {
           <Route path='/singup'>
             {/* <SignUp /> */}
           </Route>
+          <div className="Create">
           <Route path='/newpotluckform'>
             <CreatePotluckForm />
           </Route>
+          </div>
           <Route path='/edityourpotlock/:id'>
             <EditYourPotlucker />
           </Route>
         </Switch>
       </Router>
+
 
 
     </div>

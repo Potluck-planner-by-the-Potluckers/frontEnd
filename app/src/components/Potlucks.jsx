@@ -42,6 +42,7 @@ export default function Potlucks() {
                     <p>
                         My food list: {aPotluck.myFoodList}
                     </p>
+                
 
                     {/* Only if it bellongs to the user */}
                     <button onClick={() => push(`/edityourpotlock/${aPotluck.id}`)} className="btn edit">Edit Your Potlucker</button>
