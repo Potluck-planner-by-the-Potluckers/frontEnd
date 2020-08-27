@@ -77,53 +77,58 @@ export default function Potlucks() {
     // }
     const renderPotlucks = () => {
         //check if there is potluck on the list
-        const isListNotHere = !(potluckList[0].name)
+        debugger
+        const isListNotHere = !(potluckList)
 
         debugger
-        return isListNotHere ? <p>Start hosting a new Potluck</p> : potluckList.map(aPotluck => {
-            //make potluck name url friendly
-            //lowercase
-            //nospace
-            let urlPotluckName = aPotluck.potluckName.replace(/\s+/g, '')
-            urlPotluckName = urlPotluckName.toLowerCase()
+        return isListNotHere ?
+            <p>Start hosting a new Potluck</p>
+            :
+            potluckList.map(aPotluck => {
+                //make potluck name url friendly
+                //lowercase
+                //nospace
 
-            return (
-                <section className="upcoming-potluck">
-                    <h2>{aPotluck.name}</h2>
-                    {/* <p>{aPotluck.date}</p> */}
-                    <input type="date" name="date" id='date' value={aPotluck.date} disabled />
-                    <p>{aPotluck.time}</p>
-                    {/* <p>
+                let urlPotluckName = aPotluck.name.replace(/\s+/g, '')
+                urlPotluckName = urlPotluckName.toLowerCase()
+
+                return (
+                    <section className="upcoming-potluck">
+                        <h2>{aPotluck.name}</h2>
+                        <p>{aPotluck.date} : {aPotluck.time}</p>
+                        {/* <input type="date" name="date" id='date' value={aPotluck.date} disabled /> */}
+                        <p></p>
+                        {/* <p>
                         Food List: {aPotluck.foodList}
                     </p> */}
-                    <p>
-                        Location: {aPotluck.location}
-                    </p>
+                        <p>
+                            Location: {aPotluck.location}
+                        </p>
 
-                    <p>
-                        Invited Confirmed Attendence: {aPotluck.myFoodList}
-                    </p>
+                        <p>
+                            {aPotluck.description}
+                        </p>
 
 
-                    {/* Only if it bellongs to the user */}
-                    <button onClick={() => push(`/edityourpotlock/${aPotluck.id}`)} className="btn edit">Edit Your Potlucker</button>
-                    <button onClick={() => {
-                        dispatch({ type: DELETE, payload: { id: aPotluck.id } })
-                    }
-                    } className="btn delete">Delete Potlucker</button>
-                    <button className="btn public-btn" onClick={() => {
-                        push(`/${aPotluck.id}/${urlPotluckName}`)
-                    }
-                    }>See live potluck</button>
-                </section>
-            )
-        })
+                        {/* Only if it bellongs to the user */}
+                        <button onClick={() => push(`/edityourpotlock/${aPotluck.id}`)} className="btn edit">Edit Your Potlucker</button>
+                        <button onClick={() => {
+                            dispatch({ type: DELETE, payload: { id: aPotluck.id } })
+                        }
+                        } className="btn delete">Delete Potlucker</button>
+                        <button className="btn public-btn" onClick={() => {
+                            push(`/${aPotluck.id}/${urlPotluckName}`)
+                        }
+                        }>See live potluck</button>
+                    </section>
+                )
+            })
 
     }
     useEffect(() => {
         axiosWithAuth().get('users/getuserinfo')
             .then((resp) => {
-                setpotluckList(resp.data.potluck)
+                setpotluckList(resp.data.potlucks)
                 debugger
             })
             .catch((err) => {
