@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
-import { GETBYID } from '../store/reducer/reducer'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 // redux
-import { useDispatch, useSelector } from 'react-redux'
-import { EDIT } from '../store/reducer/reducer'
+import { useDispatch } from 'react-redux'
 
 
 export default function EditYourPotlucker() {
@@ -15,11 +12,9 @@ export default function EditYourPotlucker() {
     console.log(id)
     const { push } = useHistory()
 
-    //be able to create action dispatch on this component
-    const dispatch = useDispatch()
     // states
     const [editPotluck, setEditPotluck] = useState('Loading')
-    const [user, setUser] = useState()
+    // const [user, setUser] = useState()
     //helper functions
     const handleChange = e => {
         e.preventDefault()
@@ -31,15 +26,10 @@ export default function EditYourPotlucker() {
         })
     }
     const onSubmit = e => {
+        //stop page from re-lodding
         e.preventDefault()
-        const formatedUser = {
-            ...editPotluck,
-            ...user
-        }
-        debugger
-
         //save edit to server
-        axiosWithAuth().put(`/potlucks/potluck/${id}`, formatedUser)
+        axiosWithAuth().put(`/potlucks/potluck/${id}`, editPotluck)
             .then(resp => {
                 console.log(`Create post request success-- ${resp.data}`)
                 debugger
@@ -56,13 +46,16 @@ export default function EditYourPotlucker() {
         // get all of the text of the potluck form
         axiosWithAuth().get('users/getuserinfo')
             .then((resp) => {
-                setEditPotluck(resp.data.potlucks.filter(item => item.potluckid == id)[0])
+                setEditPotluck({
+                    name: resp.data.potlucks.map(item => item.name)[0],
+                    description: resp.data.potlucks.map(item => item.description)[0],
+                    location: resp.data.potlucks.map(item => item.location)[0],
+                    date: resp.data.potlucks.map(item => item.date)[0],
+                    time: resp.data.potlucks.map(item => item.time)[0],
+                    userid: resp.data.userid
+                })
                 debugger
                 
-                setUser({
-                    
-                    user:{userid: resp.data.userid}
-                })
             })
             .catch((err) => {
                 console.error(err)
