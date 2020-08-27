@@ -23,7 +23,7 @@ export default function EditYourPotlucker() {
     //filter redux store by id and return that object and set it it has  a new state in this local component
     // const currentPotluckerData = useSelector(state => state.filter(aPotluck => { return aPotluck.id === parseInt(id) }))
     //states
-    // const [editPotluck, setPotluck] = useState(currentPotluckerData[0])
+    // const [editPotluck, setEditPotluck] = useState(currentPotluckerData[0])
     // const [newInvitation, setNewInvitation] = useState({
     //     id: uuidv4(),
     //     name: '',
@@ -57,25 +57,25 @@ export default function EditYourPotlucker() {
                 return aInvited
             })
             //reflecting the changes to the invites list on state
-            setPotluck({
+            setEditPotluck({
                 ...editPotluck,
                 invited: copyOfPotluckInvited
             })
         } else if (isNewInvitation) {
             // capture input state and save it to state
-            setNewInvitation({
-                ...newInvitation,
+            setEditPotluck({
+                ...editPotluck,
                 name: e.target.value
             })
         } else if (isFoodListInput) {
             //separates all text that have , and gives them an unic index 
             let value = e.target.value.split(',')
-            setPotluck({
+            setEditPotluck({
                 ...editPotluck,
                 [e.target.name]: value
             })
         } else {
-            setPotluck({
+            setEditPotluck({
                 ...editPotluck,
                 [e.target.name]: e.target.value
             })
@@ -119,7 +119,7 @@ export default function EditYourPotlucker() {
         debugger
         let removedInvitation = editPotluck.invited
         removedInvitation = removedInvitation.filter(aInvited => aInvited.id !== id)
-        setPotluck({
+        setEditPotluck({
             ...editPotluck,
             invited: removedInvitation
         })
@@ -128,27 +128,24 @@ export default function EditYourPotlucker() {
     const addInvitation = () => {
         //adding new invited to the list
         const newInvitedAdded = editPotluck.invited.slice()
-        newInvitedAdded.push(newInvitation)
+        newInvitedAdded.push(editPotluck)
 
         //overwriting state with the new invited included
-        setPotluck(
+        setEditPotluck(
             {
                 ...editPotluck,
                 invited: newInvitedAdded
             }
         )
         //reset the input
-        setNewInvitation({
-            ...newInvitation,
-            name: '',
-            id: uuidv4()
-        })
+        
     }
 
     useEffect(()=> {
+        // get all of the text of the potluck form
         axiosWithAuth().get('users/getuserinfo')
             .then((resp) => {
-                setEditPotluck(resp.data.potlucks.filter(item => item.potluckid == id))
+                setEditPotluck(resp.data.potlucks.filter(item => item.potluckid == id)[0])
                 debugger
             })
             .catch((err) => {
@@ -189,12 +186,7 @@ export default function EditYourPotlucker() {
                 <input type="text" name="location" id='location' value={editPotluck.location} onChange={handleChange} />
 
 
-                <label htmlFor="invited">Invitations</label>
-                {invitedInputs()}
-
-                <label htmlFor="newInvitation">New Invitations</label>
-                <input type="text" name="newInvitation" id='newInvitation' value={editPotluck.name} onChange={handleChange} />
-                <button className="btn add-btn" onClick={addInvitation} type='button'>Add has invited guest</button>
+            
 
                 {/* stretch goal: validate the form, and dissable button until valitation is successful */}
                 <button className="btn submit" type='submit'>Submit</button>
