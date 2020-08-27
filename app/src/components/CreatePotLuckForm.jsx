@@ -1,35 +1,36 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import {axiosWithAuth} from '../utils/axiosWithAuth'
+import React, { useState, useEffect } from 'react'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 import { useHistory } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid' //generates :"f7b8b94e-9cff-46a2-a740-40b8fac4ec09" unic
 // redux
 import { useDispatch } from 'react-redux'
 import { ADD } from '../store/reducer/reducer'
 
 // const intialForm = {
-//     potluckName: '',
-//     date: '',
-//     foodList: '',
+//     name: '',
+//     description: '',
 //     location: '',
-//     invited: '',
-//     myFoodList: '',
+//     date: '',
+//     time: '',
+//     user: '',
 // }
+
 const intialForm = {
-    name: '',
-    description: '',
-    location: '',
-    date: '',
-    time: '',
+    name: 'New Potluck',
+    description: 'This is the description',
+    location: 'Jupiter',
+    date: '1999-04-26',
+    time: '07:00',
 }
 
 export default function CreatePotluckForm() {
     //states
     const [newPotluck, setNewPotluck] = useState(intialForm)
 
+    //helper functions
     const dispatch = useDispatch()
     const { push } = useHistory()
 
+    //helper functions
     const handleChange = e => {
         e.preventDefault()
 
@@ -46,13 +47,11 @@ export default function CreatePotluckForm() {
         // dispatch({ type: ADD, payload: {newPotluck} })
         // setNewPotluck(intialForm)
         // push('/dashboard')
-        axiosWithAuth().post('/potlucks/potluck', newPotluck, {
-            headers: { Authorization: localStorage.getItem("token") },
-        })
+        axiosWithAuth().post('/potlucks/potluck', newPotluck)
             .then(resp => {
                 console.log(`Create post request success-- ${resp.data}`)
                 //update state
-                dispatch({ type: ADD, payload: {newPotluck:resp.data} })
+                dispatch({ type: ADD, payload: { newPotluck: resp.data } })
                 //reset the form
                 setNewPotluck(intialForm)
                 debugger
@@ -73,24 +72,22 @@ export default function CreatePotluckForm() {
             <button className="btn to-dashboard" onClick={() => push('/dashboard')}>Back to Dashboard</button>
 
             {/* Form title */}
-            <h1>
-                Create New Potluck
-</h1>
+            <h1>Create New Potluck</h1>
             <form onSubmit={onSubmit}>
                 <label htmlFor="name">Potluck Name</label>
-                <input type="text" name="name" id='name' value={newPotluck.name} onChange={handleChange} required/>
+                <input type="text" name="name" id='name' value={newPotluck.name} onChange={handleChange} required />
 
                 <label htmlFor="description">Description</label>
                 <input type="description" name="description" id='description' value={newPotluck.description} onChange={handleChange} />
 
                 <label htmlFor="location">Location</label>
-                <input type="text" name="location" id='location' value={newPotluck.location} onChange={handleChange} required/>
+                <input type="text" name="location" id='location' value={newPotluck.location} onChange={handleChange} required />
 
                 <label htmlFor="date">Date</label>
-                <input type="date" name="date" id='date' value={newPotluck.date} onChange={handleChange} required/>
+                <input type="date" name="date" id='date' value={newPotluck.date} onChange={handleChange} required />
 
                 <label htmlFor="time">Time</label>
-                <input type="time" name="time" id='time' value={newPotluck.time} onChange={handleChange} min="09:00" max="18:00" required/>
+                <input type="time" name="time" id='time' value={newPotluck.time} onChange={handleChange} />
 
                 {/* stretch goal: validate the form, and dissable button until valitation is successful */}
                 <button className="btn submit" type='submit'>Submit</button>

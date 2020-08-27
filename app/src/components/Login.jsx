@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom"
 import axios from 'axios'
 
 const initialState ={
-    username: '',
-    password: '',
+    username: 'admin',
+    password: 'password',
 }
 
 export default function Login() {

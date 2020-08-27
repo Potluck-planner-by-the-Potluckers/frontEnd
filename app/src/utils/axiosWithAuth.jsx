@@ -9,10 +9,10 @@ export const axiosWithAuth = () => {
   return axios.create({
     // axios request config
     //https://github.com/axios/axios#request-config
-    baseURL: 'https://viriditymoon-buildweek.herokuapp.com',
     headers: {
-      Authorization: token,
-    }
+      Authorization: `Bearer ${token}`,
+    },
+    baseURL: 'https://viriditymoon-buildweek.herokuapp.com',
   });
 };
 
