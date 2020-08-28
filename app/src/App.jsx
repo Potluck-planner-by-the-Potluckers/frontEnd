@@ -21,21 +21,15 @@ function App() {
       <Router>
         <Switch>
           {/* will be private route soon */}
-          <PrivateRoute path='/dashboard'>
-            <Dashboard />
-          </PrivateRoute>
+          <PrivateRoute path='/dashboard' component={Dashboard}/>
           <Route exact path='/'>
             <Login />
           </Route>
           <Route path='/signup'>
             <Signup />
           </Route>
-          <PrivateRoute path='/newpotluckform'>
-            <CreatePotluckForm />
-          </PrivateRoute>
-          <PrivateRoute path='/edityourpotlock/:id'>
-            <EditYourPotlucker />
-          </PrivateRoute>
+          <PrivateRoute path='/newpotluckform' component={CreatePotluckForm}/>
+          <PrivateRoute path='/edityourpotlock/:id' component={EditYourPotlucker}/>
           <Route exact path='/:id/:urlPotluckName'>
             <PublicPotluck />
           </Route>
