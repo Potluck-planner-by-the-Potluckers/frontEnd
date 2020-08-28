@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { DELETE } from '../store/reducer/reducer'
 import { useHistory } from "react-router-dom"
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
@@ -10,7 +8,6 @@ export default function Potlucks() {
 
     //helper functions
     const { push } = useHistory()
-    const dispatch = useDispatch()
 
     // //states
     // const potluckList = useSelector(state => state)
@@ -78,7 +75,7 @@ export default function Potlucks() {
     const renderPotlucks = () => {
         //check if there is potluck on the list
         debugger
-        const isListNotHere = !(potluckList)
+        const isListNotHere = !potluckList
 
         debugger
         return isListNotHere ?
@@ -96,16 +93,8 @@ export default function Potlucks() {
                     <section className="upcoming-potluck" key={aPotluck.potluckid}>
                         <h2>{aPotluck.name}</h2>
                         <p>{aPotluck.date} : {aPotluck.time}</p>
-                        <p></p>
-                        
-                        <p>
-                            Location: {aPotluck.location}
-                        </p>
-
-                        <p>
-                            {aPotluck.description}
-                        </p>
-
+                        <p>Location: {aPotluck.location}</p>
+                        <p>{aPotluck.description}</p>
 
                         {/* Only if it bellongs to the user */}
                         <button onClick={() => push(`/edityourpotlock/${aPotluck.potluckid}`)} className="btn edit">Edit Your Potlucker</button>
