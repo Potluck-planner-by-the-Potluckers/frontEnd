@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+
 // components
 import Dashboard from './components/Dashboard'
 import CreatePotluckForm from './components/CreatePotluckForm'
@@ -11,6 +12,8 @@ import PublicPotluck from './components/PublicPotluck'
 import ConfirmationForm from './components/ConfirmationForm'
 import Login from './components/Login'
 import Signup from './components/Signup'
+
+import PrivateRoute from './components/PrivateRoute'
 function App() {
   return (
     <div className="App">
@@ -18,21 +21,21 @@ function App() {
       <Router>
         <Switch>
           {/* will be private route soon */}
-          <Route path='/dashboard'>
+          <PrivateRoute path='/dashboard'>
             <Dashboard />
-          </Route>
+          </PrivateRoute>
           <Route exact path='/'>
             <Login />
           </Route>
           <Route path='/signup'>
             <Signup />
           </Route>
-          <Route path='/newpotluckform'>
+          <PrivateRoute path='/newpotluckform'>
             <CreatePotluckForm />
-          </Route>
-          <Route path='/edityourpotlock/:id'>
+          </PrivateRoute>
+          <PrivateRoute path='/edityourpotlock/:id'>
             <EditYourPotlucker />
-          </Route>
+          </PrivateRoute>
           <Route exact path='/:id/:urlPotluckName'>
             <PublicPotluck />
           </Route>

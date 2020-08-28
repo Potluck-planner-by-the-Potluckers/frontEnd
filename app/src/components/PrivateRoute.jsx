@@ -17,7 +17,7 @@ import { Route, Redirect } from "react-router-dom";
 // It checks if user is auth; if SourceBuffer, render 'component'
 // if not, redirect to /login
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+export const PrivateRoute = ({ component: Component, ...rest }) => {
   //taking component out of props and rebuilding props again.
   //component is capilaze so JSX renders it
   //?Why do you use rest to spread the other components instead of props? IT gathers the rest of your objects so you can sepate some of the properties
@@ -30,10 +30,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         //allows to render components with associated props. From single page application TK
         if (localStorage.getItem("token")) {
           //if there is a token in localstorage render Component
+          debugger
           return <Component {...props} />;
         } else {
+          debugger
           //redirect to login
-          return <Redirect to="/login" />; //acts like an auto link
+          return <Redirect to="/" />; //acts like an auto link
         }
       }}
     ></Route>

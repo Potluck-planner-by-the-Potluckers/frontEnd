@@ -26,18 +26,7 @@ export default function EditYourPotlucker() {
     const onSubmit = e => {
         //stop page from re-lodding
         e.preventDefault()
-        //save edit to server
-        // axiosWithAuth().put(`/api/users/${id}`, editPotluck)
-        //     .then(resp => {
-        //         console.log(`Create post request success-- ${resp.data}`)
-        //         debugger
-        //         //reset the form
-        //         push('/dashboard')
-        //     })
-        //     .catch(err => {
-        //         debugger
-        //         console.error(`error in onSubmit createForm --- ${err}`)
-        //     })
+        
         axiosWithAuth().put(`/potlucks/potluck/${id}`, editPotluck)
             .then(resp => {
                 console.log(`Create post request success-- ${resp.data}`)
@@ -61,6 +50,7 @@ export default function EditYourPotlucker() {
                     location: resp.data.potlucks.map(item => item.location)[0],
                     date: resp.data.potlucks.map(item => item.date)[0],
                     time: resp.data.potlucks.map(item => item.time)[0],
+                    user: {userid: resp.data.userid}
                 })
                 debugger
                 
