@@ -1,7 +1,6 @@
 import React from 'react'
 import { useHistory } from "react-router-dom"
 import Potlucks from './Potlucks'
-import axios from 'axios'
 
 
 export default function Dashboard() {
