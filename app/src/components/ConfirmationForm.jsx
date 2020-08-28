@@ -1,34 +1,75 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form } from 'semantic-ui-react'
 
-const options = [
-    { key: 'e', text: 'Entree', value: 'entree' },
-    { key: 'dt', text: 'Dessert', value: 'dessert' },
-    { key: 'ds', text: 'Drinks', value: 'drinks' },
-]
-export default function ConfirmationForm() {
-    return (
-        // <div className='container confirmation-form-container'>
-        //     <h1>Confirmation Page</h1>
-        <Form>
-            <Form.Input fluid label='Your Name' placeholder='Name' />
-            <Form.Input fluid label='Food Item' placeholder='Food Item' />
-            <Form.Group widths='equal'>
-                <Form.Select
-                    fluid
-                    label='Food Item Type'
-                    options={options}
-                    placeholder='Food Item Type'
-                />
-                <Form.Group >
-                    <Form.Button fluid type='button'>Add more</Form.Button>
-                    <Form.Button fluid type='button'>Remove</Form.Button>
-                </Form.Group>
+const initialState = {
+    name: '',
+    type: '',
+    attendeenname: '',
+}
 
-            </Form.Group>
-            <Form.Checkbox label='I agree to the Terms and Conditions' required />
-            <Form.Button>Submit</Form.Button>
-        </Form>
-        /* </div> */
+export default function ConfirmationForm() {
+    // states
+    const [attendess, setAttendess] = useState(initialState)
+    
+    // helper variables
+    const options = [
+        { key: 'e', text: 'Entree', value: 'Entree' },
+        { key: 'dt', text: 'Dessert', value: 'Dessert' },
+        { key: 'ds', text: 'Drinks', value: 'drinks' },
+    ]
+
+    // helper functions
+    const onSubmit = (e) => {
+        e.preventDefault()
+
+
+    }
+    const handleChange = (e) => {
+        const { value, name } = e.target
+        setAttendess({
+            ...attendess,
+            [name]:value
+        })
+
+    }
+
+    return (
+        <div className='container confirmation-form-container'>
+            <h1>Confirmation Page</h1>
+            <Form>
+                <Form.Input
+                    fluid label='Your Name'
+                    placeholder='Name'
+                    onChange={handleChange}
+                    value={attendess.attendeenname}
+                    name='attendeenname'
+                />
+                <Form.Input
+                    fluid label='Food Item'
+                    placeholder='Food Item'
+                    onChange={handleChange}
+                    value={attendess.name}
+                    name='name'
+
+                />
+                <Form.Group widths='equal'>
+                    <Form.Select
+                        fluid
+                        label='Food Item Type'
+                        options={options}
+                        placeholder='Food Item Type'
+                        onChange={handleChange}
+                    name='type'
+                    />
+                    <Form.Group >
+                        <Form.Button fluid type='button' onClick={''}>Add more</Form.Button>
+                        <Form.Button fluid type='button' onClick={''}>Remove</Form.Button>
+                    </Form.Group>
+
+                </Form.Group>
+                
+                <Form.Button>Submit</Form.Button>
+            </Form>
+        </div>
     )
 }
