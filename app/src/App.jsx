@@ -17,7 +17,7 @@ import PrivateRoute from './components/PrivateRoute'
 function App() {
   return (
     <div className="App">
-
+ 
       <Router>
         <Switch>
           {/* will be private route soon */}
