@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 // components
 import Dashboard from './components/Dashboard'
-import CreatePotluckForm from './components/CreatePotLuckForm'
+import CreatePotluckForm from './components/CreatePotluckForm'
 import EditYourPotlucker from './components/EditYourPotlucker'
 import PublicPotluck from './components/PublicPotluck'
 import ConfirmationForm from './components/ConfirmationForm'
